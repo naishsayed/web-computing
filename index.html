@@ -3,89 +3,598 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookStore - Lab Project</title>
+    <title>BookVerse - Premium Online Bookstore</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
-        /* Custom styles */
-        .book-card img {
-            object-fit: contain;
-            height: 140px; /* Further reduced image size */
-            padding: 10px;
+        :root {
+            --primary: #5e35b1;
+            --primary-light: #7e57c2;
+            --primary-dark: #4527a0;
+            --secondary: #26a69a;
+            --accent: #ff7043;
+            --dark: #263238;
+            --light: #f5f5f5;
+            --gray: #757575;
+            --light-gray: #e0e0e0;
         }
-        .search-btn {
-            min-width: 100px;
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.7;
+            overflow-x: hidden;
         }
-        .nav-link {
-            padding: 0.5rem 1rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-        }
-        .nav-link:hover {
-            transform: translateY(-2px);
-        }
-        .feedback-section {
-            background-color: #f8f9fa;
-            border-radius: 8px;
-        }
-        .logo-text {
-            font-family: 'Georgia', serif;
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'EB Garamond', serif;
             font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* Header Styles */
+        .main-header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            padding: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .main-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1535905557558-afc4877a26fc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.08;
+            z-index: 0;
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 1;
+            transition: all 0.4s ease;
+        }
+
+        .logo-container:hover {
+            transform: translateY(-3px);
+        }
+
+        .logo-text {
+            font-family: 'EB Garamond', serif;
+            font-weight: 700;
+            font-size: 2.2rem;
+            color: white;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
             letter-spacing: 1px;
         }
+
+        .tagline {
+            color: rgba(255,255,255,0.85);
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Navigation */
+        .main-nav {
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .nav-link {
+            color: var(--dark) !important;
+            font-weight: 600;
+            padding: 0.8rem 1.5rem !important;
+            position: relative;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            margin: 0 0.25rem;
+        }
+
+        .nav-link:hover {
+            color: var(--primary) !important;
+            transform: translateY(-2px);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 60%;
+        }
+
+        .nav-link.active {
+            color: var(--primary) !important;
+        }
+
+        .nav-link.active::after {
+            width: 60%;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .hero-text {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* About Section */
         .about-section {
-            background-color: #e9ecef;
-            border-radius: 8px;
+            padding: 5rem 0;
+            background-color: white;
+            position: relative;
+        }
+
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1510172951991-856a62a9e395?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover fixed;
+            opacity: 0.03;
+            z-index: 0;
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 3rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 4px;
+            bottom: -12px;
+            left: 20%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .about-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: var(--gray);
+        }
+
+        .divider {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--light-gray), transparent);
+            margin: 3rem auto;
+            max-width: 600px;
+        }
+
+        /* Book Cards */
+        .book-card {
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background: white;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .book-card img {
+            object-fit: contain;
+            height: 220px;
+            padding: 25px;
+            transition: transform 0.4s ease;
+        }
+
+        .book-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .card-body {
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            color: var(--dark);
+        }
+
+        .card-author {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: auto;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border: none;
+            padding: 0.7rem 1.75rem;
+            border-radius: 30px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(94, 53, 177, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(94, 53, 177, 0.4);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        }
+
+        .btn-outline-primary {
+            border-color: var(--primary);
+            color: var(--primary);
+            border-width: 2px;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .search-input {
+            border-radius: 50px;
+            padding: 1rem 1.75rem;
+            border: none;
+            font-size: 1.1rem;
+            box-shadow: none;
+        }
+
+        .search-input:focus {
+            box-shadow: 0 0 0 0.25rem rgba(94, 53, 177, 0.25);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            bottom: 5px;
+            border-radius: 50px;
+            padding: 0 1.75rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border: none;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            height: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            padding: 5rem 0;
+            background-color: white;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 5rem;
+            font-family: 'EB Garamond', serif;
+            color: rgba(94, 53, 177, 0.1);
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            position: relative;
+            z-index: 1;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Newsletter */
+        .newsletter-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+        }
+
+        .newsletter-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            border-radius: 50px;
+            padding: 1rem 1.5rem;
+            border: none;
+            font-size: 1.1rem;
+        }
+
+        .newsletter-btn {
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            background: var(--accent);
+            border: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            background: #f4511e;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .main-footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-logo {
+            font-family: 'EB Garamond', serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links h5 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            margin-right: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            margin-top: 3rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Animations */
+        .animate-up {
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.6s ease;
+        }
+
+        .animate-up.animated {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .delay-1 { transition-delay: 0.2s; }
+        .delay-2 { transition-delay: 0.4s; }
+        .delay-3 { transition-delay: 0.6s; }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.3rem;
+            }
+            
+            .nav-link {
+                padding: 0.5rem 1rem !important;
+                margin: 0.25rem 0;
+            }
+            
+            .section-title::after {
+                width: 80%;
+                left: 10%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .logo-text {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
-<body class="bg-light">
-    <header class="bg-dark text-white py-3 shadow">
+<body>
+    <!-- Header -->
+    <header class="main-header">
         <div class="container">
-            <div class="d-flex align-items-center">
-                <img src="https://cdn-icons-png.flaticon.com/512/2702/2702134.png" alt="BookStore Logo" style="height: 40px; margin-right: 15px;">
-                <div>
-                    <h1 class="logo-text mb-0" style="font-size: 1.8rem;">BookStore</h1>
-                    <p class="mb-0 small">Your literary journey begins here</p>
-                </div>
+            <div class="d-flex flex-column align-items-center py-4 logo-container">
+                <h1 class="logo-text mb-2">BookVerse</h1>
+                <p class="tagline mb-0">Your literary journey begins here</p>
             </div>
         </div>
     </header>
     
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary py-2 shadow-sm">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light main-nav py-3">
         <div class="container">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item mx-1">
-                        <a class="nav-link active rounded-pill px-3" href="#">
-                            <i class="bi bi-house-door me-1"></i> Home Haven
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <i class="bi bi-house-door me-1"></i> Home
                         </a>
                     </li>
-                    <li class="nav-item mx-1">
-                        <a class="nav-link rounded-pill px-3" href="#">
-                            <i class="bi bi-book me-1"></i> Book Treasures
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-book me-1"></i> Books
                         </a>
                     </li>
-                    <li class="nav-item mx-1">
-                        <a class="nav-link rounded-pill px-3" href="#">
-                            <i class="bi bi-tags me-1"></i> Explore Genres
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-tags me-1"></i> Genres
                         </a>
                     </li>
-                    <li class="nav-item mx-1">
-                        <a class="nav-link rounded-pill px-3" href="#">
-                            <i class="bi bi-cart me-1"></i> Your Cart
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-award me-1"></i> Bestsellers
                         </a>
                     </li>
-                    <li class="nav-item mx-1">
-                        <a class="nav-link rounded-pill px-3" href="#">
-                            <i class="bi bi-info-circle me-1"></i> Our Story
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-info-circle me-1"></i> About
                         </a>
                     </li>
                 </ul>
@@ -93,208 +602,309 @@
         </div>
     </nav>
     
-    <main class="container my-5">
-        <!-- About Us Section -->
-        <div class="about-section p-4 mb-5 shadow-sm">
-            <h2 class="text-center mb-3">About BookStore</h2>
-            <p class="text-center mb-0">Welcome to BookStore, your premier destination for quality books since 2023. 
-                We're passionate about connecting readers with their next favorite book. 
-                Our carefully curated collection spans across all genres to satisfy every reading preference.</p>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content animate-up">
+                <h1 class="hero-title">Discover Your Next Favorite Book</h1>
+                <p class="hero-text">Explore our curated collection of over 50,000 titles across all genres. From timeless classics to contemporary bestsellers, we have something for every reader.</p>
+                <div class="d-flex gap-3">
+                    <a href="#" class="btn btn-primary btn-lg">
+                        <i class="bi bi-book me-2"></i> Browse Collection
+                    </a>
+                    <a href="#" class="btn btn-outline-light btn-lg">
+                        <i class="bi bi-star me-2"></i> Bestsellers
+                    </a>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="row justify-content-center mb-5">
-            <div class="col-md-8">
-                <div class="input-group shadow-sm">
-                    <input type="text" class="form-control form-control-lg border-primary" placeholder="Search books...">
-                    <button class="btn btn-danger px-4" type="button">
-                        <i class="bi bi-search me-2"></i> Search
-                    </button>
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-content animate-up delay-1">
+                <h2 class="section-title text-center">About BookVerse</h2>
+                <p class="about-text">Welcome to BookVerse, your premier destination for quality books since 2023. We're passionate about connecting readers with their next favorite book.</p>
+                <p class="about-text">Our carefully curated collection spans across all genres to satisfy every reading preference. From timeless classics to contemporary bestsellers, we've got something for every book lover. Our mission is to foster a love for reading by providing exceptional service and an unparalleled selection.</p>
+                
+                <hr class="divider">
+                
+                <div class="text-center">
+                    <a href="#" class="btn btn-primary px-4">
+                        <i class="bi bi-arrow-right me-2"></i> Learn More
+                    </a>
                 </div>
             </div>
         </div>
-        
-        <h2 class="text-center mb-4 pb-2 border-bottom border-2 border-primary">Featured Books</h2>
-        
-        <div class="row g-4">
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow-sm hover-shadow">
-                    <img src="https://m.media-amazon.com/images/I/41SNoh5ZhOL._SY425_.jpg" class="card-img-top" alt="Introduction to Algorithms">
-                    <div class="card-body">
-                        <h5 class="card-title">Introduction to Algorithms</h5>
-                        <p class="card-text text-muted small">Thomas H. Cormen</p>
-                        <p class="text-danger fw-bold h5">$45.99</p>
-                        <button class="btn btn-primary w-100">
-                            <i class="bi bi-cart-plus me-2"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow-sm hover-shadow">
-                    <img src="https://m.media-amazon.com/images/I/41xShlnTZTL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg" class="card-img-top" alt="Clean Code">
-                    <div class="card-body">
-                        <h5 class="card-title">Clean Code</h5>
-                        <p class="card-text text-muted small">Robert C. Martin</p>
-                        <p class="text-danger fw-bold h5">$35.50</p>
-                        <button class="btn btn-primary w-100">
-                            <i class="bi bi-cart-plus me-2"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow-sm hover-shadow">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlwkl2cfIG_d2wRZ3ToFLGHgqg8eFfdMBeYA&s" class="card-img-top" alt="Design Patterns">
-                    <div class="card-body">
-                        <h5 class="card-title">Design Patterns</h5>
-                        <p class="card-text text-muted small">Erich Gamma</p>
-                        <p class="text-danger fw-bold h5">$40.25</p>
-                        <button class="btn btn-primary w-100">
-                            <i class="bi bi-cart-plus me-2"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow-sm hover-shadow">
-                    <img src="https://m.media-amazon.com/images/I/51IA4hT6jrL._SY425_.jpg" class="card-img-top" alt="The Pragmatic Programmer">
-                    <div class="card-body">
-                        <h5 class="card-title">The Pragmatic Programmer</h5>
-                        <p class="card-text text-muted small">Andrew Hunt</p>
-                        <p class="text-danger fw-bold h5">$38.99</p>
-                        <button class="btn btn-primary w-100">
-                            <i class="bi bi-cart-plus me-2"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow-sm hover-shadow">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLXyGYio5rLPFacQ5jKdFffeoaq0qNL8XFlw&s" class="card-img-top" alt="Computer Networks">
-                    <div class="card-body">
-                        <h5 class="card-title">Computer Networks</h5>
-                        <p class="card-text text-muted small">Andrew S. Tanenbaum</p>
-                        <p class="text-danger fw-bold h5">$55.75</p>
-                        <button class="btn btn-primary w-100">
-                            <i class="bi bi-cart-plus me-2"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow-sm hover-shadow">
-                    <img src="https://m.media-amazon.com/images/I/51ZSpMl1-LL._SY425_.jpg" class="card-img-top" alt="Designing Data-Intensive Applications">
-                    <div class="card-body">
-                        <h5 class="card-title">Designing Data-Intensive Applications</h5>
-                        <p class="card-text text-muted small">Martin Kleppmann</p>
-                        <p class="text-danger fw-bold h5">$49.99</p>
-                        <button class="btn btn-primary w-100">
-                            <i class="bi bi-cart-plus me-2"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </section>
 
-        <!-- Enhanced Feedback Form Section -->
-        <div class="feedback-section p-4 mt-5 shadow-sm">
-            <h2 class="text-center mb-4 pb-2 border-bottom border-2 border-primary">We'd Love Your Feedback</h2>
+    <!-- Search Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="search-container animate-up delay-2">
+                <input type="text" class="form-control search-input" placeholder="Search books, authors, or genres...">
+                <button class="search-btn">
+                    <i class="bi bi-search me-2"></i> Search
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Books -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center mb-5 animate-up">Featured Books</h2>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4 animate-up delay-1">
+                    <div class="book-card">
+                        <img src="https://m.media-amazon.com/images/I/41SNoh5ZhOL._SY425_.jpg" class="card-img-top" alt="Introduction to Algorithms">
+                        <div class="card-body">
+                            <h5 class="card-title">Introduction to Algorithms</h5>
+                            <p class="card-author">Thomas H. Cormen</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <p class="price mb-0">$45.99</p>
+                                <button class="btn btn-primary btn-sm">
+                                    <i class="bi bi-cart-plus me-1"></i> Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 animate-up delay-2">
+                    <div class="book-card">
+                        <img src="https://m.media-amazon.com/images/I/41xShlnTZTL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg" class="card-img-top" alt="Clean Code">
+                        <div class="card-body">
+                            <h5 class="card-title">Clean Code</h5>
+                            <p class="card-author">Robert C. Martin</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <p class="price mb-0">$35.50</p>
+                                <button class="btn btn-primary btn-sm">
+                                    <i class="bi bi-cart-plus me-1"></i> Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 animate-up delay-3">
+                    <div class="book-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlwkl2cfIG_d2wRZ3ToFLGHgqg8eFfdMBeYA&s" class="card-img-top" alt="Design Patterns">
+                        <div class="card-body">
+                            <h5 class="card-title">Design Patterns</h5>
+                            <p class="card-author">Erich Gamma</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <p class="price mb-0">$40.25</p>
+                                <button class="btn btn-primary btn-sm">
+                                    <i class="bi bi-cart-plus me-1"></i> Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5 animate-up delay-2">
+                <a href="#" class="btn btn-outline-primary px-4">
+                    <i class="bi bi-collection me-2"></i> View All Books
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title text-center mb-5 animate-up">Why Choose BookVerse?</h2>
+            
+            <div class="row g-4">
+                <div class="col-md-4 animate-up delay-1">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="bi bi-truck"></i>
+                        </div>
+                        <h4>Free Shipping</h4>
+                        <p>Enjoy free shipping on all orders over $50. Fast delivery to your doorstep.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 animate-up delay-2">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </div>
+                        <h4>Easy Returns</h4>
+                        <p>Not satisfied? Return any book within 30 days for a full refund.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 animate-up delay-3">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="bi bi-headset"></i>
+                        </div>
+                        <h4>24/7 Support</h4>
+                        <p>Our customer service team is always ready to help with any questions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title text-center mb-5 animate-up">What Our Readers Say</h2>
+            
+            <div class="row g-4">
+                <div class="col-md-4 animate-up delay-1">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">BookVerse has the best selection of books I've ever seen online. Their recommendations are always spot on!</p>
+                        <p class="testimonial-author">- Sarah Johnson</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 animate-up delay-2">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">The shipping was incredibly fast and the books arrived in perfect condition. Will definitely order again!</p>
+                        <p class="testimonial-author">- Michael Chen</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 animate-up delay-3">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">I love their curated collections - they introduce me to books I wouldn't have found otherwise. Highly recommended!</p>
+                        <p class="testimonial-author">- Emily Rodriguez</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section">
+        <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <form>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="name" class="form-label">Your Name</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                    <input type="text" class="form-control" id="name" placeholder="Enter your name">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="email" class="form-label">Email Address</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                                    <input type="email" class="form-control" id="email" placeholder="Enter your email">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label class="form-label">How did you hear about us?</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="source" id="source1" value="friend">
-                                <label class="form-check-label" for="source1">Friend Recommendation</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="source" id="source2" value="search">
-                                <label class="form-check-label" for="source2">Search Engine</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="source" id="source3" value="social">
-                                <label class="form-check-label" for="source3">Social Media</label>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="rating" class="form-label">Rating</label>
-                            <div class="d-flex align-items-center">
-                                <select class="form-select me-3" id="rating">
-                                    <option selected>Select your rating</option>
-                                    <option value="5">5 - Excellent</option>
-                                    <option value="4">4 - Very Good</option>
-                                    <option value="3">3 - Good</option>
-                                    <option value="2">2 - Fair</option>
-                                    <option value="1">1 - Poor</option>
-                                </select>
-                                <div class="rating-stars">
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="comments" class="form-label">Comments</label>
-                            <textarea class="form-control" id="comments" rows="3" placeholder="Your feedback helps us improve"></textarea>
-                        </div>
-                        
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="newsletter">
-                            <label class="form-check-label" for="newsletter">Subscribe to our newsletter</label>
-                        </div>
-                        
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary px-4 me-2">
-                                <i class="bi bi-send me-2"></i> Submit Feedback
-                            </button>
-                            <button type="reset" class="btn btn-outline-secondary">
-                                <i class="bi bi-arrow-counterclockwise me-2"></i> Reset
-                            </button>
+                <div class="col-lg-8 text-center animate-up">
+                    <h2 class="mb-4">Stay Updated</h2>
+                    <p class="mb-5">Subscribe to our newsletter for the latest book releases, exclusive deals, and literary news.</p>
+                    
+                    <form class="newsletter-form">
+                        <div class="input-group">
+                            <input type="email" class="form-control newsletter-input" placeholder="Your email address">
+                            <button class="btn newsletter-btn" type="submit">Subscribe</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    </main>
-    
-    <footer class="bg-dark text-white py-4 mt-5">
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
         <div class="container">
-            <div class="text-center">
-                <p class="mb-2">BookStore - University Lab Project</p>
-                <p class="small text-white-50 mb-0">&copy; 2023 All Rights Reserved</p>
+            <div class="row">
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <div class="footer-logo">BookVerse</div>
+                    <p>Your premier destination for quality books since 2023. We're passionate about connecting readers with their next favorite book.</p>
+                    <div class="social-links mt-4">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h5>Shop</h5>
+                        <a href="#">All Books</a>
+                        <a href="#">New Releases</a>
+                        <a href="#">Bestsellers</a>
+                        <a href="#">Deals</a>
+                        <a href="#">Textbooks</a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h5>Genres</h5>
+                        <a href="#">Fiction</a>
+                        <a href="#">Non-Fiction</a>
+                        <a href="#">Science Fiction</a>
+                        <a href="#">Mystery</a>
+                        <a href="#">Biography</a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h5>Help</h5>
+                        <a href="#">Contact Us</a>
+                        <a href="#">FAQs</a>
+                        <a href="#">Shipping</a>
+                        <a href="#">Returns</a>
+                        <a href="#">Privacy Policy</a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6">
+                    <div class="footer-links">
+                        <h5>About</h5>
+                        <a href="#">Our Story</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Press</a>
+                        <a href="#">Gift Cards</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright text-center">
+                <p class="mb-0">&copy; 2023 BookVerse. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <!-- Bootstrap 5 JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-up');
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementPosition < windowHeight - 100) {
+                    element.classList.add('animated');
+                }
+            });
+        }
+        
+        // Run on load and scroll
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('scroll', animateOnScroll);
+        
+        // Rating stars interaction
+        document.querySelectorAll('.rating-stars .bi-star-fill').forEach((star, index, stars) => {
+            star.addEventListener('mouseover', () => {
+                stars.forEach((s, i) => {
+                    if (i <= index) {
+                        s.style.color = '#ffc107';
+                    } else {
+                        s.style.color = '#e4e4e4';
+                    }
+                });
+            });
+            
+            star.addEventListener('click', () => {
+                document.getElementById('rating').value = index + 1;
+            });
+        });
+    </script>
 </body>
 </html>
