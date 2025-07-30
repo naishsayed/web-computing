@@ -4,240 +4,297 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookStore - Lab Project</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
-        /* Basic Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        
-        body {
-            background-color: #f4f4f4;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        /* Header */
-        header {
-            background-color: #2c3e50;
-            color: white;
-            padding: 1rem;
-            text-align: center;
-        }
-        
-        /* Navigation */
-        nav {
-            background-color: #34495e;
-            padding: 0.5rem;
-        }
-        
-        nav ul {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin: 0 1rem;
-        }
-        
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem;
-        }
-        
-        nav ul li a:hover {
-            background-color: #2c3e50;
-            border-radius: 4px;
-        }
-        
-        /* Main Content */
-        .container {
-            max-width: 1200px;
-            margin: 1rem auto;
-            padding: 0 1rem;
-        }
-        
-        /* Search Bar */
-        .search-bar {
-            display: flex;
-            margin: 1rem 0;
-        }
-        
-        .search-bar input {
-            flex: 1;
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 4px 0 0 4px;
-        }
-        
-        .search-bar button {
-            padding: 0.5rem 1rem;
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
-        }
-        
-        /* Book Grid */
-        .book-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .book-card {
-            background: white;
-            border-radius: 4px;
-            padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
+        /* Custom styles */
         .book-card img {
-            width: 100%;
-            height: 200px;
             object-fit: contain;
-            margin-bottom: 0.5rem;
-            border: 1px solid #eee;
+            height: 140px; /* Further reduced image size */
+            padding: 10px;
         }
-        
-        .book-title {
-            font-weight: bold;
-            margin-bottom: 0.3rem;
+        .search-btn {
+            min-width: 100px;
         }
-        
-        .book-author {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+        .nav-link {
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
         }
-        
-        .book-price {
-            color: #e74c3c;
-            font-weight: bold;
+        .nav-link:hover {
+            transform: translateY(-2px);
         }
-        
-        .add-to-cart {
-            display: block;
-            width: 100%;
-            padding: 0.5rem;
-            margin-top: 0.5rem;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        .feedback-section {
+            background-color: #f8f9fa;
+            border-radius: 8px;
         }
-        
-        /* Footer */
-        footer {
-            background-color: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 1rem;
-            margin-top: 2rem;
+        .logo-text {
+            font-family: 'Georgia', serif;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
-        
-        /* Responsive */
-        @media (max-width: 600px) {
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            nav ul li {
-                margin: 0.3rem 0;
-            }
-            
-            .book-grid {
-                grid-template-columns: 1fr;
-            }
+        .about-section {
+            background-color: #e9ecef;
+            border-radius: 8px;
         }
     </style>
 </head>
-<body>
-    <header>
-        <h1>BookStore</h1>
-        <p>Your simple online book shop</p>
+<body class="bg-light">
+    <header class="bg-dark text-white py-3 shadow">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <img src="https://cdn-icons-png.flaticon.com/512/2702/2702134.png" alt="BookStore Logo" style="height: 40px; margin-right: 15px;">
+                <div>
+                    <h1 class="logo-text mb-0" style="font-size: 1.8rem;">BookStore</h1>
+                    <p class="mb-0 small">Your literary journey begins here</p>
+                </div>
+            </div>
+        </div>
     </header>
     
-    <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Books</a></li>
-            <li><a href="#">Categories</a></li>
-            <li><a href="#">Cart</a></li>
-            <li><a href="#">About</a></li>
-        </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary py-2 shadow-sm">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item mx-1">
+                        <a class="nav-link active rounded-pill px-3" href="#">
+                            <i class="bi bi-house-door me-1"></i> Home Haven
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link rounded-pill px-3" href="#">
+                            <i class="bi bi-book me-1"></i> Book Treasures
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link rounded-pill px-3" href="#">
+                            <i class="bi bi-tags me-1"></i> Explore Genres
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link rounded-pill px-3" href="#">
+                            <i class="bi bi-cart me-1"></i> Your Cart
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link rounded-pill px-3" href="#">
+                            <i class="bi bi-info-circle me-1"></i> Our Story
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
     
-    <div class="container">
-        <div class="search-bar">
-            <input type="text" placeholder="Search books...">
-            <button>Search</button>
+    <main class="container my-5">
+        <!-- About Us Section -->
+        <div class="about-section p-4 mb-5 shadow-sm">
+            <h2 class="text-center mb-3">About BookStore</h2>
+            <p class="text-center mb-0">Welcome to BookStore, your premier destination for quality books since 2023. 
+                We're passionate about connecting readers with their next favorite book. 
+                Our carefully curated collection spans across all genres to satisfy every reading preference.</p>
+        </div>
+
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <div class="input-group shadow-sm">
+                    <input type="text" class="form-control form-control-lg border-primary" placeholder="Search books...">
+                    <button class="btn btn-danger px-4" type="button">
+                        <i class="bi bi-search me-2"></i> Search
+                    </button>
+                </div>
+            </div>
         </div>
         
-        <h2>Featured Books</h2>
-        <div class="book-grid">
-            <div class="book-card">
-                <img src="https://m.media-amazon.com/images/I/41SNoh5ZhOL._SY425_.jpg" alt="Introduction to Algorithms">
-                <div class="book-title">Introduction to Algorithms</div>
-                <div class="book-author">Thomas H. Cormen</div>
-                <div class="book-price">$45.99</div>
-                <button class="add-to-cart">Add to Cart</button>
+        <h2 class="text-center mb-4 pb-2 border-bottom border-2 border-primary">Featured Books</h2>
+        
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm hover-shadow">
+                    <img src="https://m.media-amazon.com/images/I/41SNoh5ZhOL._SY425_.jpg" class="card-img-top" alt="Introduction to Algorithms">
+                    <div class="card-body">
+                        <h5 class="card-title">Introduction to Algorithms</h5>
+                        <p class="card-text text-muted small">Thomas H. Cormen</p>
+                        <p class="text-danger fw-bold h5">$45.99</p>
+                        <button class="btn btn-primary w-100">
+                            <i class="bi bi-cart-plus me-2"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
             </div>
             
-            <div class="book-card">
-                <!-- Fixed Clean Code image -->
-                <img src="https://m.media-amazon.com/images/I/41xShlnTZTL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg" alt="Clean Code">
-                <div class="book-title">Clean Code</div>
-                <div class="book-author">Robert C. Martin</div>
-                <div class="book-price">$35.50</div>
-                <button class="add-to-cart">Add to Cart</button>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm hover-shadow">
+                    <img src="https://m.media-amazon.com/images/I/41xShlnTZTL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg" class="card-img-top" alt="Clean Code">
+                    <div class="card-body">
+                        <h5 class="card-title">Clean Code</h5>
+                        <p class="card-text text-muted small">Robert C. Martin</p>
+                        <p class="text-danger fw-bold h5">$35.50</p>
+                        <button class="btn btn-primary w-100">
+                            <i class="bi bi-cart-plus me-2"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
             </div>
             
-            <div class="book-card">
-                <img src="https://m.media-amazon.com/images/I/51kuc0iWoFL._SY425_.jpg" alt="Design Patterns">
-                <div class="book-title">Design Patterns</div>
-                <div class="book-author">Erich Gamma</div>
-                <div class="book-price">$40.25</div>
-                <button class="add-to-cart">Add to Cart</button>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm hover-shadow">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlwkl2cfIG_d2wRZ3ToFLGHgqg8eFfdMBeYA&s" class="card-img-top" alt="Design Patterns">
+                    <div class="card-body">
+                        <h5 class="card-title">Design Patterns</h5>
+                        <p class="card-text text-muted small">Erich Gamma</p>
+                        <p class="text-danger fw-bold h5">$40.25</p>
+                        <button class="btn btn-primary w-100">
+                            <i class="bi bi-cart-plus me-2"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
             </div>
             
-            <div class="book-card">
-                <img src="https://m.media-amazon.com/images/I/51IA4hT6jrL._SY425_.jpg" alt="The Pragmatic Programmer">
-                <div class="book-title">The Pragmatic Programmer</div>
-                <div class="book-author">Andrew Hunt</div>
-                <div class="book-price">$38.99</div>
-                <button class="add-to-cart">Add to Cart</button>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm hover-shadow">
+                    <img src="https://m.media-amazon.com/images/I/51IA4hT6jrL._SY425_.jpg" class="card-img-top" alt="The Pragmatic Programmer">
+                    <div class="card-body">
+                        <h5 class="card-title">The Pragmatic Programmer</h5>
+                        <p class="card-text text-muted small">Andrew Hunt</p>
+                        <p class="text-danger fw-bold h5">$38.99</p>
+                        <button class="btn btn-primary w-100">
+                            <i class="bi bi-cart-plus me-2"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
             </div>
             
-            <div class="book-card">
-                <img src="https://m.media-amazon.com/images/I/51RS7cB3aLL._SY425_.jpg" alt="Computer Networks">
-                <div class="book-title">Computer Networks</div>
-                <div class="book-author">Andrew S. Tanenbaum</div>
-                <div class="book-price">$55.75</div>
-                <button class="add-to-cart">Add to Cart</button>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm hover-shadow">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLXyGYio5rLPFacQ5jKdFffeoaq0qNL8XFlw&s" class="card-img-top" alt="Computer Networks">
+                    <div class="card-body">
+                        <h5 class="card-title">Computer Networks</h5>
+                        <p class="card-text text-muted small">Andrew S. Tanenbaum</p>
+                        <p class="text-danger fw-bold h5">$55.75</p>
+                        <button class="btn btn-primary w-100">
+                            <i class="bi bi-cart-plus me-2"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
             </div>
             
-            <div class="book-card">
-                <!-- Fixed Designing Data-Intensive Applications image -->
-                <img src="https://m.media-amazon.com/images/I/51ZSpMl1-LL._SY425_.jpg" alt="Designing Data-Intensive Applications">
-                <div class="book-title">Designing Data-Intensive Applications</div>
-                <div class="book-author">Martin Kleppmann</div>
-                <div class="book-price">$49.99</div>
-                <button class="add-to-cart">Add to Cart</button>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm hover-shadow">
+                    <img src="https://m.media-amazon.com/images/I/51ZSpMl1-LL._SY425_.jpg" class="card-img-top" alt="Designing Data-Intensive Applications">
+                    <div class="card-body">
+                        <h5 class="card-title">Designing Data-Intensive Applications</h5>
+                        <p class="card-text text-muted small">Martin Kleppmann</p>
+                        <p class="text-danger fw-bold h5">$49.99</p>
+                        <button class="btn btn-primary w-100">
+                            <i class="bi bi-cart-plus me-2"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+
+        <!-- Enhanced Feedback Form Section -->
+        <div class="feedback-section p-4 mt-5 shadow-sm">
+            <h2 class="text-center mb-4 pb-2 border-bottom border-2 border-primary">We'd Love Your Feedback</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Your Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                    <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                    <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">How did you hear about us?</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="source" id="source1" value="friend">
+                                <label class="form-check-label" for="source1">Friend Recommendation</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="source" id="source2" value="search">
+                                <label class="form-check-label" for="source2">Search Engine</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="source" id="source3" value="social">
+                                <label class="form-check-label" for="source3">Social Media</label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">Rating</label>
+                            <div class="d-flex align-items-center">
+                                <select class="form-select me-3" id="rating">
+                                    <option selected>Select your rating</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="4">4 - Very Good</option>
+                                    <option value="3">3 - Good</option>
+                                    <option value="2">2 - Fair</option>
+                                    <option value="1">1 - Poor</option>
+                                </select>
+                                <div class="rating-stars">
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="comments" class="form-label">Comments</label>
+                            <textarea class="form-control" id="comments" rows="3" placeholder="Your feedback helps us improve"></textarea>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="newsletter">
+                            <label class="form-check-label" for="newsletter">Subscribe to our newsletter</label>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary px-4 me-2">
+                                <i class="bi bi-send me-2"></i> Submit Feedback
+                            </button>
+                            <button type="reset" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-counterclockwise me-2"></i> Reset
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
     
-    <footer>
-        <p>BookStore - University Lab Project &copy; 2023</p>
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="text-center">
+                <p class="mb-2">BookStore - University Lab Project</p>
+                <p class="small text-white-50 mb-0">&copy; 2023 All Rights Reserved</p>
+            </div>
+        </div>
     </footer>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
